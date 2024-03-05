@@ -98,15 +98,15 @@ public class PasswordHash extends JFrame {
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.anchor = GridBagConstraints.LINE_START;
         JPanel optionsPanel = new JPanel(new GridLayout(0, 2, 5, 5));
-        JLabel lengthLabel = new JLabel("密码长度（10-256位可选 | 推荐默认为10位）：");
+        JLabel lengthLabel = new JLabel("密码长度（6-256位可选 | 推荐默认为6位）：");
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 1;
         gbc.anchor = GridBagConstraints.LINE_END;
         mainPanel.add(lengthLabel, gbc);
-        Integer[] lengths = new Integer[257];
+        Integer[] lengths = new Integer[251];
         for (int i = 0; i < lengths.length; i++) {
-            lengths[i] = 10 + i * 1;
+            lengths[i] = 6 + i;
         }
         passwordLengthSelector = new JComboBox<>(lengths);
         optionsPanel.add(lengthLabel);
@@ -159,6 +159,8 @@ public class PasswordHash extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 1;
+
+
         mainPanel.add(fileNamePanel, gbc);
         generateButton = new JButton("生成");
         passwordTextArea = new JTextArea(1, 30);
@@ -203,8 +205,8 @@ public class PasswordHash extends JFrame {
                         randomPasswordLength -= contentLength;
                     }
                 }
-                if (randomPasswordLength < 10 || randomPasswordLength > 256 || possibleCharacters.isEmpty() || fileNameField.getText().trim().isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "错误，通常是文件名未填写或无效或（减去固定内容后）密码长度超出允许值 | Error, usually because the file name is not filled in or invalid or the password length (excluding fixed content) exceeds the allowed value");
+                if (fileNameField.getText().trim().isEmpty() || possibleCharacters.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "错误，文件名未填写或密码包含的字符集为空 | Error, file name not filled or password contains no character set");
                     return;
                 }
                 SecureRandom randomizer = new SecureRandom();
