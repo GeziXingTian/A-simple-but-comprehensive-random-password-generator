@@ -1,1 +1,1 @@
-It's a simple but well-rounded random password generator with versatile options and features
+随机密码生成器，包含多种功能
